@@ -2,293 +2,220 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Flores Mobiliario</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<title>Iniciar Sesión | Flores Mobiliario</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d6efd, #6c757d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,.2);
+        }
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
 
-<style>
+        .titulo {
+            color: #0d6efd;
+            font-weight: bold;
+        }
 
-:root{
---azul:#0d6efd;
---azulOscuro:#0a2647;
-}
+        .btn-primary {
+            background: #0d6efd;
+            border: none;
+        }
 
-body{
-background:#f5f7fa;
-}
+        .btn-primary:hover {
+            background: #0b5ed7;
+        }
 
-.navbar{
-background:var(--azulOscuro);
-}
+        .link-registro {
+            text-decoration: none;
+        }
 
-.login-section{
-min-height:90vh;
-display:flex;
-align-items:center;
-}
-
-.card-login{
-border:none;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 0 20px rgba(0,0,0,.1);
-}
-
-.panel{
-background:linear-gradient(135deg,#0a2647,#0d6efd);
-color:white;
-padding:50px;
-height:100%;
-}
-
-footer{
-background:#111;
-color:white;
-padding:25px;
-margin-top:50px;
-}
-
-</style>
-
+        .link-registro:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-
 <div class="container">
 
-<a class="navbar-brand fw-bold" href="index.html">
-🏢 Flores Mobiliario
-</a>
+    <div class="row justify-content-center">
 
-<div>
+        <div class="col-md-5">
 
-<a href="index.html"
-class="btn btn-outline-light btn-sm">
-Inicio
-</a>
+            <div class="card p-4">
 
-<a href="registro.html"
-class="btn btn-light btn-sm">
-Registrarse
-</a>
+                <div class="text-center mb-4">
+                    <div class="logo">Flores Mobiliario</div>
+                    <h3 class="titulo">Iniciar Sesión</h3>
+                </div>
 
-</div>
+                <form id="formLogin">
 
-</div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico</label>
+                        <input
+                            type="email"
+                            id="correo"
+                            class="form-control"
+                            required>
+                    </div>
 
-</nav>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-control"
+                            required>
+                    </div>
 
-<section class="login-section">
+                    <div id="mensaje"></div>
 
-<div class="container">
+                    <div class="d-grid mt-3">
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg">
+                            Ingresar
+                        </button>
+                    </div>
 
-<div class="card card-login">
+                </form>
 
-<div class="row g-0">
+                <hr>
 
-<!-- PANEL IZQUIERDO -->
+                <div class="text-center">
+                    ¿No tienes cuenta?
+                    <a href="registro.html" class="link-registro">
+                        Registrarse
+                    </a>
+                </div>
 
-<div class="col-lg-5">
+            </div>
 
-<div class="panel">
+        </div>
 
-<h1>
-Bienvenido
-</h1>
-
-<p class="mt-4">
-
-Accede a tu cuenta para gestionar
-cotizaciones, pedidos y productos.
-
-</p>
-
-<hr>
-
-<h5>
-Funciones del sistema
-</h5>
-
-<ul>
-
-<li>Consultar cotizaciones.</li>
-
-<li>Generar nuevas solicitudes.</li>
-
-<li>Administrar perfil.</li>
-
-<li>Seguimiento de pedidos.</li>
-
-<li>Acceso al panel administrativo.</li>
-
-</ul>
+    </div>
 
 </div>
-
-</div>
-
-<!-- FORMULARIO -->
-
-<div class="col-lg-7">
-
-<div class="p-5">
-
-<h2 class="mb-4">
-
-<i class="bi bi-box-arrow-in-right"></i>
-
-Iniciar Sesión
-
-</h2>
-
-<form id="loginForm">
-
-<div class="mb-3">
-
-<label>Correo Electrónico</label>
-
-<input
-type="email"
-id="correo"
-class="form-control"
-placeholder="correo@empresa.com"
-required>
-
-</div>
-
-<div class="mb-3">
-
-<label>Contraseña</label>
-
-<input
-type="password"
-id="password"
-class="form-control"
-placeholder="********"
-required>
-
-</div>
-
-<div class="form-check mb-4">
-
-<input
-class="form-check-input"
-type="checkbox">
-
-<label class="form-check-label">
-
-Recordar sesión
-
-</label>
-
-</div>
-
-<button
-type="submit"
-class="btn btn-primary btn-lg w-100">
-
-Ingresar
-
-</button>
-
-</form>
-
-<hr>
-
-<div class="text-center">
-
-<a href="#">
-¿Olvidaste tu contraseña?
-</a>
-
-</div>
-
-<hr>
-
-<p class="text-center">
-
-¿No tienes cuenta?
-
-<a href="registro.html">
-
-Regístrate aquí
-
-</a>
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<footer>
-
-<div class="container text-center">
-
-<p>
-© 2026 Flores Mobiliario
-</p>
-
-<p>
-Sistema de Venta y Cotización de Mobiliario de Oficina
-</p>
-
-</div>
-
-</footer>
 
 <script>
 
-document
-.getElementById("loginForm")
-.addEventListener("submit",function(e){
+const formLogin = document.getElementById("formLogin");
+const mensaje = document.getElementById("mensaje");
 
-e.preventDefault();
-
-let correo =
-document.getElementById("correo").value;
-
-if(correo.includes("admin")){
-
-alert(
-"Bienvenido Administrador"
-);
-
-window.location.href="admin.html";
-
-}else{
-
-alert(
-"Bienvenido al sistema"
-);
-
-window.location.href="perfil.html";
-
+function obtenerUsuarios() {
+    return JSON.parse(localStorage.getItem("usuarios")) || [];
 }
+
+function guardarSesion(usuario) {
+
+    const sesion = {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        apellidos: usuario.apellidos,
+        correo: usuario.correo,
+        telefono: usuario.telefono,
+        empresa: usuario.empresa,
+        rol: usuario.rol,
+        fechaInicio: new Date().toLocaleString()
+    };
+
+    localStorage.setItem(
+        "usuarioLogueado",
+        JSON.stringify(sesion)
+    );
+}
+
+const usuarioActivo = JSON.parse(
+    localStorage.getItem("usuarioLogueado")
+);
+
+if(usuarioActivo){
+
+    if(usuarioActivo.rol === "admin"){
+        window.location.href = "admin.html";
+    }else{
+        window.location.href = "perfil.html";
+    }
+}
+
+formLogin.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const correo = document
+        .getElementById("correo")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password = document
+        .getElementById("password")
+        .value;
+
+    const usuarios = obtenerUsuarios();
+
+    const usuario = usuarios.find(u =>
+        u.correo === correo &&
+        u.password === password
+    );
+
+    if(!usuario){
+
+        mensaje.innerHTML = `
+            <div class="alert alert-danger mt-3">
+                Correo o contraseña incorrectos.
+            </div>
+        `;
+
+        return;
+    }
+
+    guardarSesion(usuario);
+
+    mensaje.innerHTML = `
+        <div class="alert alert-success mt-3">
+            Inicio de sesión exitoso.
+            Redirigiendo...
+        </div>
+    `;
+
+    setTimeout(() => {
+
+        if(usuario.rol === "admin"){
+
+            window.location.href = "admin.html";
+
+        }else{
+
+            window.location.href = "perfil.html";
+
+        }
+
+    }, 1500);
 
 });
 
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>
