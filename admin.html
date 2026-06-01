@@ -270,20 +270,18 @@ function cargarResumen() {
 
 function cargarUsuarios() {
 
-    if(usuarios.length === 0){
+if(usuarios.length === 0){
 
-    tabla.innerHTML = `
-    <tr>
-    <td colspan="6"
-    class="text-center">
-    No existen usuarios registrados.
-    </td>
-    </tr>
-    `;
+tabla.innerHTML = `
+<tr>
+<td colspan="6" class="text-center">
+No existen usuarios registrados
+</td>
+</tr>
+`;
 
-    return;
-
-    }
+return;
+}
     
     const usuarios = obtenerUsuarios();
 
@@ -292,59 +290,57 @@ function cargarUsuarios() {
 
     tabla.innerHTML = "";
 
-    usuarios.forEach(usuario => {
+usuarios.forEach(usuario => {
 
-        tabla.innerHTML += `
-            <tr>
-                <td>
-                    ${usuario.nombre}
-                    ${usuario.apellidos}
-                </td>
+    tabla.innerHTML += `
+        <tr>
+            <td>
+                ${(usuario.nombre || "")}
+                ${(usuario.apellidos || "")}
+            </td>
 
-                <td>${usuario.correo}</td>
+            <td>${usuario.correo || ""}</td>
 
-                <td>${usuario.empresa}</td>
+            <td>${usuario.empresa || ""}</td>
 
-                <td>${usuario.rol}</td>
+            <td>${usuario.rol || ""}</td>
 
-                <td>${usuario.fechaRegistro}</td>
+            <td>${usuario.fechaRegistro || ""}</td>
 
-                <td>
+            <td>
 
-                    ${
-                        usuario.rol === "admin"
-                        ?
-                        '<span class="badge bg-primary">Administrador</span>'
-                        :
-                        `<button
-                            class="btn btn-danger btn-sm"
-                            onclick="eliminarUsuario(${usuario.id})">
-                            Eliminar
-                        </button>`
-                    }
+                ${
+                    usuario.rol === "admin"
+                    ?
+                    '<span class="badge bg-primary">Administrador</span>'
+                    :
+                    `<button
+                        class="btn btn-danger btn-sm"
+                        onclick="eliminarUsuario(${usuario.id})">
+                        Eliminar
+                    </button>`
+                }
 
-                </td>
-            </tr>
-        `;
-    });
+            </td>
 
+        </tr>
+    `;
+});
 }
 
 function cargarCotizaciones() {
-    if(cotizaciones.length === 0){
+if(cotizaciones.length === 0){
 
-    tabla.innerHTML = `
-    <tr>
-    <td colspan="8"
-    class="text-center">
-    No existen cotizaciones registradas.
-    </td>
-    </tr>
-    `;
+tabla.innerHTML = `
+<tr>
+<td colspan="8" class="text-center">
+No existen cotizaciones registradas
+</td>
+</tr>
+`;
 
-    return;
-
-    }
+return;
+}
     
     const cotizaciones =
         obtenerCotizaciones();
@@ -356,43 +352,45 @@ function cargarCotizaciones() {
 
     tabla.innerHTML = "";
 
-    cotizaciones.forEach(c => {
+cotizaciones.forEach(c => {
 
-        tabla.innerHTML += `
-            <tr>
+tabla.innerHTML += `
 
-                <td>${c.folio}</td>
+<tr>
 
-                <td>${c.nombreUsuario}</td>
+<td>${c.folio || ""}</td>
 
-                <td>${c.empresa}</td>
+<td>${c.nombreUsuario || ""}</td>
 
-                <td>${c.producto}</td>
+<td>${c.empresa || ""}</td>
 
-                <td>${c.cantidad}</td>
+<td>${c.producto || ""}</td>
 
-                <td>
-                    $${Number(c.total)
-                        .toLocaleString("es-MX")}
-                </td>
+<td>${c.cantidad || 0}</td>
 
-                <td>${c.fecha}</td>
+<td>
+$${Number(c.total || 0).toLocaleString("es-MX")}
+</td>
 
-                <td>
+<td>${c.fecha || ""}</td>
 
-                    <button
-                        class="btn btn-danger btn-sm"
-                        onclick="eliminarCotizacion(${c.id})">
+<td>
 
-                        Eliminar
+<button
+class="btn btn-danger btn-sm"
+onclick="eliminarCotizacion(${c.id})">
 
-                    </button>
+Eliminar
 
-                </td>
+</button>
 
-            </tr>
-        `;
-    });
+</td>
+
+</tr>
+
+`;
+
+});
 
 }
 
@@ -479,7 +477,11 @@ function cerrarSesion() {
     window.location.href =
         "login.html";
 }
+console.log("USUARIOS");
+console.log(obtenerUsuarios());
 
+console.log("COTIZACIONES");
+console.log(obtenerCotizaciones());
 cargarResumen();
 cargarUsuarios();
 cargarCotizaciones();
