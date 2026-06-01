@@ -2,518 +2,401 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo | Flores Mobiliario</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<title>Dashboard Administrador | Flores Mobiliario</title>
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        .navbar {
+            background-color: #0d6efd;
+        }
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
 
-<style>
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,.1);
+        }
 
-:root{
---azul:#0d6efd;
---azulOscuro:#0a2647;
---gris:#f5f7fa;
-}
+        .card-resumen {
+            text-align: center;
+            padding: 20px;
+        }
 
-body{
-background:var(--gris);
-}
+        .numero {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
 
-.sidebar{
-background:var(--azulOscuro);
-min-height:100vh;
-color:white;
-}
+        .table thead {
+            background-color: #0d6efd;
+            color: white;
+        }
 
-.sidebar a{
-display:block;
-color:white;
-padding:15px;
-text-decoration:none;
-}
-
-.sidebar a:hover{
-background:#123c66;
-}
-
-.card-dashboard{
-border:none;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,.1);
-}
-
-.numero{
-font-size:2rem;
-font-weight:bold;
-}
-
-.barra{
-height:12px;
-border-radius:20px;
-}
-
-</style>
-
+        .titulo {
+            color: #0d6efd;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container-fluid">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
 
-<div class="row">
+        <a class="navbar-brand" href="#">
+            Flores Mobiliario - Administración
+        </a>
 
-<!-- SIDEBAR -->
+        <div class="ms-auto">
 
-<div class="col-md-2 sidebar">
+            <a href="reportes.html" class="btn btn-light me-2">
+                Reportes
+            </a>
 
-<h3 class="text-center mt-4">
-🏢 Flores
-</h3>
+            <button class="btn btn-danger" onclick="cerrarSesion()">
+                Cerrar Sesión
+            </button>
 
-<hr>
+        </div>
 
-<a href="#">
-<i class="bi bi-speedometer2"></i>
- Dashboard
-</a>
+    </div>
+</nav>
 
-<a href="#">
-<i class="bi bi-people"></i>
- Usuarios
-</a>
+<div class="container mt-4">
 
-<a href="#">
-<i class="bi bi-box-seam"></i>
- Productos
-</a>
+    <div class="row">
 
-<a href="#">
-<i class="bi bi-tags"></i>
- Categorías
-</a>
+        <div class="col-md-4 mb-4">
 
-<a href="#">
-<i class="bi bi-file-earmark-text"></i>
- Cotizaciones
-</a>
+            <div class="card card-resumen">
+                <h5>Total Usuarios</h5>
+                <div class="numero" id="totalUsuarios">0</div>
+            </div>
 
-<a href="#">
-<i class="bi bi-graph-up"></i>
- Reportes
-</a>
+        </div>
 
-<a href="#">
-<i class="bi bi-gear"></i>
- Configuración
-</a>
+        <div class="col-md-4 mb-4">
 
-<a href="index.html">
-<i class="bi bi-box-arrow-left"></i>
- Salir
-</a>
+            <div class="card card-resumen">
+                <h5>Total Cotizaciones</h5>
+                <div class="numero" id="totalCotizaciones">0</div>
+            </div>
 
-</div>
+        </div>
 
-<!-- CONTENIDO -->
+        <div class="col-md-4 mb-4">
 
-<div class="col-md-10">
+            <div class="card card-resumen">
+                <h5>Ventas Cotizadas</h5>
+                <div class="numero" id="montoTotal">$0</div>
+            </div>
 
-<div class="p-4">
+        </div>
 
-<h2>
-Dashboard Administrativo
-</h2>
+    </div>
 
-<p class="text-muted">
-Resumen general del sistema.
-</p>
+    <div class="card p-4 mb-4">
 
-<!-- KPIs -->
+        <h3 class="titulo mb-3">
+            Usuarios Registrados
+        </h3>
 
-<div class="row mt-4">
+        <div class="table-responsive">
 
-<div class="col-md-3">
+            <table class="table table-bordered table-hover">
 
-<div class="card card-dashboard p-4">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Empresa</th>
+                        <th>Rol</th>
+                        <th>Fecha Registro</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
 
-<h6>Usuarios</h6>
+                <tbody id="tablaUsuarios">
+                </tbody>
 
-<div class="numero text-primary">
-150
-</div>
+            </table>
 
-<p>
-+12 este mes
-</p>
+        </div>
 
-</div>
+    </div>
 
-</div>
+    <div class="card p-4">
 
-<div class="col-md-3">
+        <h3 class="titulo mb-3">
+            Cotizaciones Registradas
+        </h3>
 
-<div class="card card-dashboard p-4">
+        <div class="table-responsive">
 
-<h6>Productos</h6>
+            <table class="table table-bordered table-hover">
 
-<div class="numero text-success">
-65
-</div>
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Cliente</th>
+                        <th>Empresa</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
 
-<p>
-5 nuevos
-</p>
+                <tbody id="tablaCotizaciones">
+                </tbody>
 
-</div>
+            </table>
 
-</div>
+        </div>
 
-<div class="col-md-3">
-
-<div class="card card-dashboard p-4">
-
-<h6>Cotizaciones</h6>
-
-<div class="numero text-warning">
-82
-</div>
-
-<p>
-18 pendientes
-</p>
+    </div>
 
 </div>
 
-</div>
+<script>
 
-<div class="col-md-3">
+const usuarioLogueado = JSON.parse(
+    localStorage.getItem("usuarioLogueado")
+);
 
-<div class="card card-dashboard p-4">
+if (!usuarioLogueado) {
+    window.location.href = "login.html";
+}
 
-<h6>Ventas</h6>
+if (usuarioLogueado.rol !== "admin") {
+    window.location.href = "perfil.html";
+}
 
-<div class="numero text-danger">
-$450K
-</div>
+function obtenerUsuarios() {
+    return JSON.parse(localStorage.getItem("usuarios")) || [];
+}
 
-<p>
-Mensual
-</p>
+function obtenerCotizaciones() {
+    return JSON.parse(localStorage.getItem("cotizaciones")) || [];
+}
 
-</div>
+function cargarResumen() {
 
-</div>
+    const usuarios = obtenerUsuarios();
+    const cotizaciones = obtenerCotizaciones();
 
-</div>
+    let totalVentas = 0;
 
-<!-- ACTIVIDAD -->
+    cotizaciones.forEach(c => {
+        totalVentas += Number(c.total);
+    });
 
-<div class="row mt-5">
+    document.getElementById("totalUsuarios").textContent =
+        usuarios.length;
 
-<div class="col-lg-8">
+    document.getElementById("totalCotizaciones").textContent =
+        cotizaciones.length;
 
-<div class="card card-dashboard p-4">
+    document.getElementById("montoTotal").textContent =
+        "$" + totalVentas.toLocaleString("es-MX");
+}
 
-<h4>
-Actividad Reciente
-</h4>
+function cargarUsuarios() {
 
-<table class="table">
+    const usuarios = obtenerUsuarios();
 
-<thead>
+    const tabla =
+        document.getElementById("tablaUsuarios");
 
-<tr>
+    tabla.innerHTML = "";
 
-<th>Folio</th>
-<th>Cliente</th>
-<th>Estado</th>
+    usuarios.forEach(usuario => {
 
-</tr>
+        tabla.innerHTML += `
+            <tr>
+                <td>
+                    ${usuario.nombre}
+                    ${usuario.apellidos}
+                </td>
 
-</thead>
+                <td>${usuario.correo}</td>
 
-<tbody>
+                <td>${usuario.empresa}</td>
 
-<tr>
+                <td>${usuario.rol}</td>
 
-<td>COT-001</td>
+                <td>${usuario.fechaRegistro}</td>
 
-<td>Empresa ABC</td>
+                <td>
 
-<td>
-<span class="badge bg-success">
-Aprobada
-</span>
-</td>
+                    ${
+                        usuario.rol === "admin"
+                        ?
+                        '<span class="badge bg-primary">Administrador</span>'
+                        :
+                        `<button
+                            class="btn btn-danger btn-sm"
+                            onclick="eliminarUsuario(${usuario.id})">
+                            Eliminar
+                        </button>`
+                    }
 
-</tr>
+                </td>
+            </tr>
+        `;
+    });
 
-<tr>
+}
 
-<td>COT-002</td>
+function cargarCotizaciones() {
 
-<td>Corporativo Delta</td>
+    const cotizaciones =
+        obtenerCotizaciones();
 
-<td>
-<span class="badge bg-warning">
-Pendiente
-</span>
-</td>
+    const tabla =
+        document.getElementById(
+            "tablaCotizaciones"
+        );
 
-</tr>
+    tabla.innerHTML = "";
 
-<tr>
+    cotizaciones.forEach(c => {
 
-<td>COT-003</td>
+        tabla.innerHTML += `
+            <tr>
 
-<td>Escuela Innovar</td>
+                <td>${c.folio}</td>
 
-<td>
-<span class="badge bg-danger">
-Rechazada
-</span>
-</td>
+                <td>${c.nombreUsuario}</td>
 
-</tr>
+                <td>${c.empresa}</td>
 
-<tr>
+                <td>${c.producto}</td>
 
-<td>COT-004</td>
+                <td>${c.cantidad}</td>
 
-<td>Oficinas León</td>
+                <td>
+                    $${Number(c.total)
+                        .toLocaleString("es-MX")}
+                </td>
 
-<td>
-<span class="badge bg-success">
-Aprobada
-</span>
-</td>
+                <td>${c.fecha}</td>
 
-</tr>
+                <td>
 
-</tbody>
+                    <button
+                        class="btn btn-danger btn-sm"
+                        onclick="eliminarCotizacion(${c.id})">
 
-</table>
+                        Eliminar
 
-</div>
+                    </button>
 
-</div>
+                </td>
 
-<!-- METAS -->
+            </tr>
+        `;
+    });
 
-<div class="col-lg-4">
+}
 
-<div class="card card-dashboard p-4">
+function eliminarUsuario(id) {
 
-<h4>
-Metas del Mes
-</h4>
+    const confirmar =
+        confirm(
+            "¿Deseas eliminar este usuario?"
+        );
 
-<p>Ventas</p>
+    if(!confirmar) return;
 
-<div class="progress mb-3">
+    let usuarios =
+        obtenerUsuarios();
 
-<div class="progress-bar bg-success barra"
-style="width:85%">
+    usuarios =
+        usuarios.filter(
+            usuario => usuario.id !== id
+        );
 
-85%
+    localStorage.setItem(
+        "usuarios",
+        JSON.stringify(usuarios)
+    );
 
-</div>
+    let cotizaciones =
+        obtenerCotizaciones();
 
-</div>
+    cotizaciones =
+        cotizaciones.filter(
+            cotizacion =>
+            cotizacion.usuarioId !== id
+        );
 
-<p>Cotizaciones</p>
+    localStorage.setItem(
+        "cotizaciones",
+        JSON.stringify(cotizaciones)
+    );
 
-<div class="progress mb-3">
+    cargarResumen();
+    cargarUsuarios();
+    cargarCotizaciones();
+}
 
-<div class="progress-bar bg-primary barra"
-style="width:70%">
+function eliminarCotizacion(id) {
 
-70%
+    const confirmar =
+        confirm(
+            "¿Eliminar esta cotización?"
+        );
 
-</div>
+    if(!confirmar) return;
 
-</div>
+    let cotizaciones =
+        obtenerCotizaciones();
 
-<p>Nuevos Clientes</p>
+    cotizaciones =
+        cotizaciones.filter(
+            cotizacion =>
+            cotizacion.id !== id
+        );
 
-<div class="progress">
+    localStorage.setItem(
+        "cotizaciones",
+        JSON.stringify(cotizaciones)
+    );
 
-<div class="progress-bar bg-warning barra"
-style="width:92%">
+    cargarResumen();
+    cargarCotizaciones();
+}
 
-92%
+function cerrarSesion() {
 
-</div>
+    localStorage.removeItem(
+        "usuarioLogueado"
+    );
 
-</div>
+    window.location.href =
+        "login.html";
+}
 
-</div>
+cargarResumen();
+cargarUsuarios();
+cargarCotizaciones();
 
-</div>
-
-</div>
-
-<!-- GESTIÓN -->
-
-<div class="row mt-5">
-
-<div class="col-md-6">
-
-<div class="card card-dashboard p-4">
-
-<h4>
-Gestión de Usuarios
-</h4>
-
-<ul>
-
-<li>Registrar usuario</li>
-
-<li>Editar usuario</li>
-
-<li>Eliminar usuario</li>
-
-<li>Asignar roles</li>
-
-</ul>
-
-<button class="btn btn-primary">
-Administrar
-</button>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="card card-dashboard p-4">
-
-<h4>
-Gestión de Productos
-</h4>
-
-<ul>
-
-<li>Agregar productos</li>
-
-<li>Editar productos</li>
-
-<li>Actualizar stock</li>
-
-<li>Categorías</li>
-
-</ul>
-
-<button class="btn btn-success">
-Administrar
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- REPORTES -->
-
-<div class="row mt-5">
-
-<div class="col-md-4">
-
-<div class="card card-dashboard p-4 text-center">
-
-<h1>📈</h1>
-
-<h5>Ventas Mensuales</h5>
-
-<p>
-Reporte financiero.
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card card-dashboard p-4 text-center">
-
-<h1>📦</h1>
-
-<h5>Inventario</h5>
-
-<p>
-Control de productos.
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card card-dashboard p-4 text-center">
-
-<h1>👥</h1>
-
-<h5>Clientes</h5>
-
-<p>
-Análisis de usuarios.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ACCIONES RAPIDAS -->
-
-<div class="card card-dashboard p-4 mt-5">
-
-<h4>
-Acciones Rápidas
-</h4>
-
-<div class="d-flex gap-3 flex-wrap">
-
-<button class="btn btn-primary">
-Nuevo Usuario
-</button>
-
-<button class="btn btn-success">
-Nuevo Producto
-</button>
-
-<button class="btn btn-warning">
-Nueva Cotización
-</button>
-
-<button class="btn btn-danger">
-Generar Reporte
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</script>
 
 </body>
 </html>
