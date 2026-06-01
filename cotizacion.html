@@ -2,446 +2,380 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización | Flores Mobiliario</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<title>Cotización | Flores Mobiliario</title>
+    <style>
+        body{
+            background:#f4f6f9;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        .navbar{
+            background:#0d6efd;
+        }
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        .navbar-brand{
+            color:white !important;
+            font-weight:bold;
+        }
 
-<style>
+        .card{
+            border:none;
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(0,0,0,.1);
+        }
 
-:root{
---azul:#0d6efd;
---azulOscuro:#0a2647;
-}
+        .titulo{
+            color:#0d6efd;
+            font-weight:bold;
+        }
 
-body{
-background:#f5f7fa;
-}
-
-.navbar{
-background:var(--azulOscuro);
-}
-
-.banner{
-height:300px;
-background:
-linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
-url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80');
-background-size:cover;
-background-position:center;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
-text-align:center;
-}
-
-.card{
-border:none;
-box-shadow:0 0 15px rgba(0,0,0,.1);
-}
-
-footer{
-background:#111;
-color:white;
-padding:30px;
-margin-top:50px;
-}
-
-</style>
-
+        .resumen{
+            background:#eef5ff;
+            border-radius:10px;
+            padding:15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
 
-<div class="container">
+        <a class="navbar-brand" href="#">
+            Flores Mobiliario
+        </a>
 
-<a class="navbar-brand fw-bold" href="index.html">
-🏢 Flores Mobiliario
-</a>
+        <div class="ms-auto">
 
-<button class="navbar-toggler"
-data-bs-toggle="collapse"
-data-bs-target="#menu">
+            <a href="perfil.html" class="btn btn-light me-2">
+                Mi Perfil
+            </a>
 
-<span class="navbar-toggler-icon"></span>
+            <button class="btn btn-danger" onclick="cerrarSesion()">
+                Cerrar Sesión
+            </button>
 
-</button>
+        </div>
 
-<div class="collapse navbar-collapse" id="menu">
-
-<ul class="navbar-nav ms-auto">
-
-<li class="nav-item">
-<a class="nav-link" href="index.html">Inicio</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="productos.html">Productos</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link active" href="cotizacion.html">Cotización</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="contacto.html">Contacto</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="login.html">Login</a>
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
+    </div>
 </nav>
-
-<section class="banner">
-
-<div>
-
-<h1>Solicita tu Cotización</h1>
-
-<p>
-Genera una cotización personalizada para tu empresa.
-</p>
-
-</div>
-
-</section>
 
 <div class="container mt-5">
 
-<div class="row">
+    <div class="row justify-content-center">
 
-<!-- FORMULARIO -->
+        <div class="col-lg-8">
 
-<div class="col-lg-7">
+            <div class="card p-4">
 
-<div class="card p-4">
+                <h2 class="titulo text-center mb-4">
+                    Nueva Cotización
+                </h2>
 
-<h3 class="mb-4">
-<i class="bi bi-file-earmark-text"></i>
-Datos de la Cotización
-</h3>
+                <form id="formCotizacion">
 
-<div class="row">
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Cliente
+                        </label>
 
-<div class="col-md-6 mb-3">
+                        <input
+                            type="text"
+                            id="cliente"
+                            class="form-control"
+                            readonly>
+                    </div>
 
-<label>Nombre Completo</label>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Empresa
+                        </label>
 
-<input type="text"
-class="form-control"
-placeholder="Ingrese su nombre">
+                        <input
+                            type="text"
+                            id="empresa"
+                            class="form-control"
+                            readonly>
+                    </div>
 
-</div>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Producto
+                        </label>
 
-<div class="col-md-6 mb-3">
+                        <select
+                            id="producto"
+                            class="form-select"
+                            required>
 
-<label>Correo Electrónico</label>
+                            <option value="">
+                                Seleccione un producto
+                            </option>
 
-<input type="email"
-class="form-control"
-placeholder="correo@empresa.com">
+                            <option value="Escritorio Ejecutivo" data-precio="8500">
+                                Escritorio Ejecutivo - $8,500
+                            </option>
 
-</div>
+                            <option value="Silla Ergonómica" data-precio="3500">
+                                Silla Ergonómica - $3,500
+                            </option>
 
-</div>
+                            <option value="Mesa de Juntas" data-precio="12000">
+                                Mesa de Juntas - $12,000
+                            </option>
 
-<div class="row">
+                            <option value="Archivero Metálico" data-precio="2800">
+                                Archivero Metálico - $2,800
+                            </option>
 
-<div class="col-md-6 mb-3">
+                            <option value="Recepción Modular" data-precio="18500">
+                                Recepción Modular - $18,500
+                            </option>
 
-<label>Empresa</label>
+                        </select>
+                    </div>
 
-<input type="text"
-class="form-control"
-placeholder="Nombre de la empresa">
+                    <div class="mb-3">
 
-</div>
+                        <label class="form-label">
+                            Precio Unitario
+                        </label>
 
-<div class="col-md-6 mb-3">
+                        <input
+                            type="number"
+                            id="precio"
+                            class="form-control"
+                            readonly>
+                    </div>
 
-<label>Teléfono</label>
+                    <div class="mb-3">
 
-<input type="text"
-class="form-control"
-placeholder="4771234567">
+                        <label class="form-label">
+                            Cantidad
+                        </label>
 
-</div>
+                        <input
+                            type="number"
+                            id="cantidad"
+                            class="form-control"
+                            min="1"
+                            value="1"
+                            required>
+                    </div>
 
-</div>
+                    <div class="resumen mb-3">
 
-<hr>
+                        <h5>Total Cotización</h5>
 
-<h5>Producto</h5>
+                        <h3 id="totalTexto">
+                            $0.00
+                        </h3>
 
-<select id="producto"
-class="form-select mb-3">
+                    </div>
 
-<option value="5500">
-Escritorio Ejecutivo - $5,500
-</option>
+                    <div id="mensaje"></div>
 
-<option value="2800">
-Silla Ergonómica - $2,800
-</option>
+                    <div class="d-grid">
 
-<option value="3200">
-Archivero Metálico - $3,200
-</option>
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg">
 
-<option value="12500">
-Mesa de Juntas - $12,500
-</option>
+                            Guardar Cotización
 
-<option value="4900">
-Librero Corporativo - $4,900
-</option>
+                        </button>
 
-<option value="18000">
-Recepción Ejecutiva - $18,000
-</option>
+                    </div>
 
-</select>
+                </form>
 
-<label>Cantidad</label>
+            </div>
 
-<input type="number"
-id="cantidad"
-class="form-control mb-3"
-value="1"
-min="1">
+        </div>
 
-<button
-class="btn btn-primary"
-onclick="calcular()">
-
-<i class="bi bi-calculator"></i>
-Calcular Cotización
-
-</button>
-
-</div>
-
-</div>
-
-<!-- RESUMEN -->
-
-<div class="col-lg-5">
-
-<div class="card p-4">
-
-<h3>
-<i class="bi bi-receipt"></i>
-Resumen
-</h3>
-
-<hr>
-
-<p>
-<strong>Producto:</strong>
-<span id="nombreProducto">
-Escritorio Ejecutivo
-</span>
-</p>
-
-<p>
-<strong>Precio Unitario:</strong>
-$<span id="precio">
-5500
-</span>
-</p>
-
-<p>
-<strong>Cantidad:</strong>
-<span id="cant">
-1
-</span>
-</p>
-
-<hr>
-
-<h4 class="text-primary">
-
-Total:
-$<span id="total">
-5500
-</span>
-
-</h4>
-
-<hr>
-
-<button
-class="btn btn-success w-100 mb-2"
-onclick="generarCotizacion()">
-
-<i class="bi bi-check-circle"></i>
-Generar Cotización
-
-</button>
-
-<button
-class="btn btn-outline-primary w-100">
-
-<i class="bi bi-download"></i>
-Descargar PDF
-
-</button>
+    </div>
 
 </div>
-
-</div>
-
-</div>
-
-<!-- BENEFICIOS -->
-
-<div class="row mt-5">
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h1>🚚</h1>
-
-<h5>Entrega Rápida</h5>
-
-<p>
-Instalación y entrega profesional.
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h1>🛡️</h1>
-
-<h5>Garantía</h5>
-
-<p>
-Productos de alta calidad.
-</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h1>📞</h1>
-
-<h5>Asesoría</h5>
-
-<p>
-Atención personalizada.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<footer>
-
-<div class="container">
-
-<div class="row">
-
-<div class="col-md-6">
-
-<h5>Flores Mobiliario</h5>
-
-<p>
-Especialistas en mobiliario corporativo.
-</p>
-
-</div>
-
-<div class="col-md-6 text-end">
-
-<p>📍 León, Guanajuato</p>
-
-<p>📞 (477) 000-0000</p>
-
-</div>
-
-</div>
-
-</div>
-
-</footer>
 
 <script>
 
-function calcular(){
-
-let select =
-document.getElementById("producto");
-
-let precio =
-parseFloat(select.value);
-
-let cantidad =
-parseInt(
-document.getElementById("cantidad").value
+const usuario = JSON.parse(
+    localStorage.getItem("usuarioLogueado")
 );
 
-let total =
-precio * cantidad;
-
-document.getElementById("precio")
-.innerText = precio;
-
-document.getElementById("cant")
-.innerText = cantidad;
-
-document.getElementById("total")
-.innerText = total.toLocaleString();
-
-document.getElementById("nombreProducto")
-.innerText =
-select.options[
-select.selectedIndex
-].text;
-
+if(!usuario){
+    window.location.href = "login.html";
 }
 
-function generarCotizacion(){
+document.getElementById("cliente").value =
+    usuario.nombre + " " + usuario.apellidos;
 
-alert(
-"Cotización generada correctamente.\n\nFolio: COT-" +
-Math.floor(Math.random()*10000)
+document.getElementById("empresa").value =
+    usuario.empresa;
+
+const producto =
+    document.getElementById("producto");
+
+const precio =
+    document.getElementById("precio");
+
+const cantidad =
+    document.getElementById("cantidad");
+
+const totalTexto =
+    document.getElementById("totalTexto");
+
+const mensaje =
+    document.getElementById("mensaje");
+
+function calcularTotal(){
+
+    const opcion =
+        producto.options[producto.selectedIndex];
+
+    const precioUnitario =
+        Number(opcion.dataset.precio || 0);
+
+    precio.value =
+        precioUnitario;
+
+    const total =
+        precioUnitario * Number(cantidad.value);
+
+    totalTexto.textContent =
+        "$" + total.toLocaleString(
+            "es-MX",
+            {
+                minimumFractionDigits: 2
+            }
+        );
+
+    return total;
+}
+
+producto.addEventListener(
+    "change",
+    calcularTotal
 );
+
+cantidad.addEventListener(
+    "input",
+    calcularTotal
+);
+
+function generarFolio(){
+
+    let cotizaciones =
+        JSON.parse(
+            localStorage.getItem("cotizaciones")
+        ) || [];
+
+    let consecutivo =
+        cotizaciones.length + 1001;
+
+    return "COT-" + consecutivo;
+}
+
+document.getElementById(
+    "formCotizacion"
+).addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+        const nombreProducto =
+            producto.value;
+
+        const precioUnitario =
+            Number(precio.value);
+
+        const cantidadProducto =
+            Number(cantidad.value);
+
+        const total =
+            calcularTotal();
+
+        const nuevaCotizacion = {
+
+            id: Date.now(),
+
+            folio: generarFolio(),
+
+            fecha: new Date().toLocaleString(),
+
+            producto: nombreProducto,
+
+            precio: precioUnitario,
+
+            cantidad: cantidadProducto,
+
+            total: total,
+
+            usuarioId: usuario.id,
+
+            nombreUsuario:
+                usuario.nombre +
+                " " +
+                usuario.apellidos,
+
+            correoUsuario:
+                usuario.correo,
+
+            empresa:
+                usuario.empresa
+
+        };
+
+        let cotizaciones =
+            JSON.parse(
+                localStorage.getItem("cotizaciones")
+            ) || [];
+
+        cotizaciones.push(
+            nuevaCotizacion
+        );
+
+        localStorage.setItem(
+            "cotizaciones",
+            JSON.stringify(cotizaciones)
+        );
+
+        mensaje.innerHTML = `
+            <div class="alert alert-success mt-3">
+                Cotización guardada correctamente.<br>
+                Folio generado:
+                <strong>${nuevaCotizacion.folio}</strong>
+            </div>
+        `;
+
+        document.getElementById(
+            "formCotizacion"
+        ).reset();
+
+        precio.value = "";
+        totalTexto.textContent = "$0.00";
+
+    }
+);
+
+function cerrarSesion(){
+
+    localStorage.removeItem(
+        "usuarioLogueado"
+    );
+
+    window.location.href =
+        "login.html";
 
 }
 
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
