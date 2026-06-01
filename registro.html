@@ -312,9 +312,40 @@ document
 
 e.preventDefault();
 
-alert(
-"Registro realizado correctamente.\n\nBienvenido a Flores Mobiliario."
+document
+.getElementById("registroForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let usuario = {
+
+nombre:
+document.getElementById("nombre").value,
+
+apellidos:
+document.getElementById("apellidos").value,
+
+correo:
+document.getElementById("correo").value,
+
+empresa:
+document.getElementById("empresa").value
+
+};
+
+localStorage.setItem(
+usuario.correo,
+JSON.stringify(usuario)
 );
+
+alert(
+"Usuario registrado correctamente"
+);
+
+window.location.href="login.html";
+
+});
 
 window.location.href="login.html";
 
