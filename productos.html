@@ -93,7 +93,7 @@ data-bs-target="#menu">
 <div class="collapse navbar-collapse" id="menu">
 
 <ul class="navbar-nav ms-auto">
-
+<div id="menuUsuario"></div>
 <li class="nav-item">
 <a class="nav-link" href="index.html">Inicio</a>
 </li>
@@ -110,9 +110,7 @@ data-bs-target="#menu">
 <a class="nav-link" href="contacto.html">Contacto</a>
 </li>
 
-<li class="nav-item">
-<a class="nav-link" href="login.html">Login</a>
-</li>
+
 
 </ul>
 
@@ -491,15 +489,229 @@ producto.style.display='none';
 
 function agregarProducto(nombre){
 
-alert(
-nombre +
-" agregado a la cotización."
+const usuario =
+JSON.parse(
+localStorage.getItem(
+"usuarioLogueado"
+)
 );
+
+if(!usuario){
+
+alert(
+"Debes iniciar sesión para cotizar."
+);
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+const precios = {
+
+"Escritorio Ejecutivo":5500,
+"Silla Ergonómica":2800,
+"Archivero Metálico":3200,
+"Mesa de Juntas":12500,
+"Librero Corporativo":4900,
+"Recepción Ejecutiva":18000
+
+};
+
+let cotizaciones =
+JSON.parse(
+localStorage.getItem(
+"cotizaciones"
+)
+) || [];
+
+let ultimoFolio =
+Number(
+localStorage.getItem(
+"ultimoFolio"
+)
+) || 1000;
+
+ultimoFolio++;
+
+localStorage.setItem(
+"ultimoFolio",
+ultimoFolio
+);
+
+const nuevaCotizacion = {
+
+id: Date.now(),
+
+folio:
+"COT-" +
+ultimoFolio,
+
+fecha:
+new Date()
+.toLocaleString(),
+
+producto:
+nombre,
+
+precio:
+precios[nombre],
+
+cantidad:1,
+
+total:
+precios[nombre],
+
+usuarioId:
+usuario.id,
+
+nombreUsuario:
+usuario.nombre +
+" " +
+usuario.apellidos,
+
+correoUsuario:
+usuario.correo,
+
+empresa:
+usuario.empresa
+
+};
+
+cotizaciones.push(
+nuevaCotizacion
+);
+
+localStorage.setItem(
+"cotizaciones",
+JSON.stringify(
+cotizaciones
+)
+);
+
+alert(
+"Producto agregado correctamente.\n\n" +
+"Folio: " +
+nuevaCotizacion.folio
+);
+
+window.location.href =
+"perfil.html";
 
 }
 
 </script>
+<script>
 
+const usuarioLogueado =
+JSON.parse(
+localStorage.getItem(
+"usuarioLogueado"
+)
+);
+
+const menuUsuario =
+document.getElementById(
+"menuUsuario"
+);
+
+if(menuUsuario){
+
+if(usuarioLogueado){
+
+menuUsuario.innerHTML = `
+
+<li class="nav-item">
+
+<a class="nav-link"
+href="perfil.html">
+
+👤 ${usuarioLogueado.nombre}
+
+</a>
+
+</li>
+
+${
+usuarioLogueado.rol === "admin"
+?
+`
+<li class="nav-item">
+
+<a class="nav-link"
+href="admin.html">
+
+Administración
+
+</a>
+
+</li>
+`
+:
+""
+}
+
+<li class="nav-item">
+
+<a class="nav-link text-danger"
+href="#"
+onclick="cerrarSesion()">
+
+Cerrar Sesión
+
+</a>
+
+</li>
+
+`;
+
+}else{
+
+menuUsuario.innerHTML = `
+
+<li class="nav-item">
+
+<a class="nav-link"
+href="login.html">
+
+Login
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a class="btn btn-primary ms-2"
+href="registro.html">
+
+Registrarse
+
+</a>
+
+</li>
+
+`;
+
+}
+
+}
+
+function cerrarSesion(){
+
+localStorage.removeItem(
+"usuarioLogueado"
+);
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
